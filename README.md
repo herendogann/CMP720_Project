@@ -8,6 +8,10 @@
 
 ---
 
+Presentation Video: https://youtu.be/U-SuaEX9GkQ
+
+---
+
 ## Overview
 
 EdgeRAG is a fully offline RAG pipeline designed for air-gapped, privacy-critical, and energy-constrained embedded environments. It runs on a QEMU-emulated ARM Cortex-A53 (AArch64) with a hard 2 GB RAM ceiling and zero network access.
