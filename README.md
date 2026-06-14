@@ -1,29 +1,50 @@
-# EdgeRAG: Offline Retrieval-Augmented Generation on Resource-Constrained Simulated ARM Architectures 🚀
+# EdgeRAG
 
-**Institution:** Hacettepe University -  Computer Engineering  
-**Course:** CMP720 - Embedded System Design - Spring 2026  
-**Author:** Hüseyin Eren Doğan
+**Offline Retrieval-Augmented Generation on Resource-Constrained Simulated ARM Architectures**
+
+> CMP720 Embedded System Design — Spring 2026  
+> Hacettepe University · Aselsan  
+> Hüseyin Eren Doğan · N25123065
 
 ---
 
-## 📌 Project Overview
-Deploying Large Language Models (LLMs) usually requires high-bandwidth cloud infrastructure. However, embedded environments (industrial IoT, remote sensors, air-gapped facilities) demand systems that can reason and answer queries offline due to connectivity, privacy, and security constraints. 
+## Overview
 
-**EdgeRAG** aims to solve this by building a fully offline Retrieval-Augmented Generation (RAG) pipeline designed specifically for resource-constrained edge environments.
+EdgeRAG is a fully offline RAG pipeline designed for air-gapped, privacy-critical, and energy-constrained embedded environments. It runs on a QEMU-emulated ARM Cortex-A53 (AArch64) with a hard 2 GB RAM ceiling and zero network access.
 
-## ⚙️ System Architecture & Constraints
-Instead of relying on physical hardware, this project utilizes a strict simulation environment to test the theoretical and practical limits of the software stack:
-* **Hardware Emulator:** QEMU simulating an ARM-based Single Board Computer (SBC).
-* **Resource Constraints:** Artificially limited RAM (e.g., 2GB - 4GB) and restricted CPU processing power.
-* **Vector Database:** Lightweight local instances (FAISS / ChromaDB).
-* **Language Model:** Heavily quantized Small Language Model (SLM) in GGUF format (e.g., 4-bit Phi-3 or TinyLlama).
-* **Orchestration:** Minimal LangChain architecture for document chunking, embedding, and retrieval.
+The pipeline combines 4-bit quantized LLM inference (Phi-3 Mini via llama.cpp), CPU-optimized vector retrieval (FAISS), semantic chunking, and a KPN module architecture that enforces strict memory isolation between stages.
 
-## 🛤️ Project Milestones (9-10 Weeks Timeline)
-The project will be developed and evaluated through the following core phases:
+**No cloud. No GPU. No internet.**
 
-1. **Phase 1: Environment & Emulation Setup**
-2. **Phase 2: Local Model Deployment**
-3. **Phase 3: Offline RAG Integration**
-4. **Phase 4: Profiling & System Evaluation**
-5. **Phase 5: Finalization & Reporting**
+---
+
+## Results
+
+| Metric | Target | Achieved |
+|--------|--------|----------|
+| Query completion | ≥ 95% | **100%** (5/5) |
+| Avg. end-to-end latency | ≤ 60 s | **58.6 s** |
+| Token generation speed | ≥ 0.5 t/s | **2.92 t/s** |
+| Peak RAM usage | ≤ 1800 MB | **729 MB** |
+| OOM failure rate | < 5% | **0%** |
+
+
+
+---
+
+## Tech Stack
+
+| Component | Choice |
+|-----------|--------|
+| LLM | Phi-3 Mini Q4_K_M (GGUF) |
+| Inference | llama-cpp-python (CPU-only) |
+| Vector DB | FAISS flat L2 |
+| Embeddings | all-MiniLM-L6-v2 |
+| Orchestration | LangChain |
+| Platform | QEMU ARM Cortex-A53 (AArch64) |
+
+---
+
+## License
+
+Academic project — Hacettepe University CMP720, Spring 2026.
